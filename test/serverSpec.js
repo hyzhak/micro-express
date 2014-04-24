@@ -77,6 +77,26 @@ describe('server', function() {
         });
     });
 
+    it('should return on GET /some/?complext=path "hello world!"', function(done) {
+        var message = 'hello world!';
+        app.use(function(req, res) {
+            res.write(message);
+        });
+
+        app.listen(3000, function() {
+            request
+                .get('http://localhost:3000/some/?complext=path')
+                .end(function(err, res) {
+                    if (err) {
+                        done(err);
+                    }
+
+                    expect(res.text).to.be.equal(message);
+                    done()
+                });
+        });
+    });
+
     it('should return on GET /hello2 "hello world 2!"', function(done) {
         var wrongMessage = 'hello world 1!',
             rightMessage = 'hello world 2!';
@@ -102,4 +122,38 @@ describe('server', function() {
                 });
         });
     });
+
+    xit('should wait until "next" function of use will invoke', function(done) {
+        var wrongMessage = 'Wrong!',
+            firstPartOfRightMessage = 'hello world 2!',
+            secondPartOfRightMessage = 'hello world 1!',
+            message1 = firstPartOfRightMessage,
+            message2 = wrongMessage;
+
+        app.use('/', function(req, res, next) {
+            res.write(message1);
+            setTimeout(function() {
+                message2 = secondPartOfRightMessage;
+                next();
+            }, 100);
+        });
+
+        app.use('/', function(req, res) {
+            res.write(message2);
+        });
+
+        app.listen(3000, function() {
+            request
+                .get('http://localhost:3000/')
+                .end(function(err, res) {
+                    if (err) {
+                        done(err);
+                    }
+
+                    expect(res.text).to.be.equal(firstPartOfRightMessage + secondPartOfRightMessage);
+                    done()
+                });
+        });
+
+    })
 });
