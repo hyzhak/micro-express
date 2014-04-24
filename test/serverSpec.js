@@ -123,7 +123,7 @@ describe('server', function() {
         });
     });
 
-    xit('should wait until "next" function of use will invoke', function(done) {
+    it('should wait until "next" function of use will be invoke', function(done) {
         var wrongMessage = 'Wrong!',
             firstPartOfRightMessage = 'hello world 2!',
             secondPartOfRightMessage = 'hello world 1!',
