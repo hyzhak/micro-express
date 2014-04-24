@@ -2,7 +2,7 @@
   "name": "micro-express",
   "version": "0.0.1",
   "description": "express middleware implementation",
-  "main": "scripts/index.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
