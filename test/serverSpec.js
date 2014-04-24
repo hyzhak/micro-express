@@ -23,11 +23,31 @@ describe('server', function() {
 
     it('should start listen port 3000 on listen(3000)', function(done) {
         app.listen(3000, function() {
-            console.log('listen!');
             request
                 .get('http://localhost:3000/')
                 .end(function(err, res) {
                     done(err);
+                });
+        });
+    });
+
+    xit('should return on GET "hello world!"', function(done) {
+        var message = 'hello world!';
+        app.use(function(req, res, next) {
+            res.write(message);
+            next();
+        });
+
+        app.listen(3000, function() {
+            request
+                .get('http://localhost:3000/')
+                .end(function(err, res) {
+                    if (err) {
+                        done(err);
+                    }
+
+                    expect(res.body).to.be.equal(message);
+                    done()
                 });
         });
     });
