@@ -14,11 +14,15 @@ describe('server', function() {
     });
 
     it('should has "use" function', function() {
-        expect(app).to.have.property('use')
+        expect(app).to.have.property('use');
     });
 
     it('should has "listen" function', function() {
-        expect(app).to.have.property('listen')
+        expect(app).to.have.property('listen');
+    });
+
+    it('should has "listen" function', function() {
+        expect(app).to.have.property('close');
     });
 
     it('should start listen port 3000 on listen(3000)', function(done) {
