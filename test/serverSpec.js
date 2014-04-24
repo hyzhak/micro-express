@@ -76,4 +76,30 @@ describe('server', function() {
                 });
         });
     });
+
+    it('should return on GET /hello2 "hello world 2!"', function(done) {
+        var wrongMessage = 'hello world 1!',
+            rightMessage = 'hello world 2!';
+
+        app.use('/wrong-url', function(req, res) {
+            res.write(wrongMessage);
+        });
+
+        app.use('/right-url', function(req, res) {
+            res.write(rightMessage);
+        });
+
+        app.listen(3000, function() {
+            request
+                .get('http://localhost:3000/right-url')
+                .end(function(err, res) {
+                    if (err) {
+                        done(err);
+                    }
+
+                    expect(res.text).to.be.equal(rightMessage);
+                    done()
+                });
+        });
+    });
 });
