@@ -26,6 +26,27 @@ describe('server', function() {
         expect(app).to.have.property('close');
     });
 
+    it('should raise exception on wrong number of arguments for use handler', function() {
+        expect(function() {
+            app.use(function() {
+
+            });
+        }).to.throw();
+
+        expect(function() {
+            app.use(function(res) {
+
+            });
+        }).to.throw();
+
+
+        expect(function() {
+            app.use(function(res, req, next, somethingmore) {
+
+            });
+        }).to.throw();
+    });
+
     it('should start listen port 3000 on listen(3000)', function(done) {
         app.listen(3000, function() {
             request
