@@ -10,6 +10,7 @@ describe('server', function() {
     });
 
     afterEach(function() {
+        app.close();
         app = null;
     });
 
@@ -35,11 +36,10 @@ describe('server', function() {
         });
     });
 
-    xit('should return on GET "hello world!"', function(done) {
+    it('should return on GET "hello world!"', function(done) {
         var message = 'hello world!';
-        app.use(function(req, res, next) {
+        app.use(function(req, res) {
             res.write(message);
-            next();
         });
 
         app.listen(3000, function() {
@@ -50,7 +50,7 @@ describe('server', function() {
                         done(err);
                     }
 
-                    expect(res.body).to.be.equal(message);
+                    expect(res.text).to.be.equal(message);
                     done()
                 });
         });
