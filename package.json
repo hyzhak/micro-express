@@ -1,0 +1,17 @@
+{
+  "name": "express-lite",
+  "version": "0.0.1",
+  "description": "express middleware implementation",
+  "main": "scripts/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Eugene Krevenets <hyzhak@ya.ru>",
+  "license": "MIT"
+}
