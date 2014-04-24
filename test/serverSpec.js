@@ -1,5 +1,6 @@
-var middleware = require('./../index.js'),
-    expect = require('chai').expect;
+var expect = require('chai').expect,
+    middleware = require('./../index.js'),
+    request = require('superagent');
 
 describe('server', function() {
     var app;
@@ -18,5 +19,16 @@ describe('server', function() {
 
     it('should has "listen" function', function() {
         expect(app).to.have.property('listen')
+    });
+
+    it('should start listen port 3000 on listen(3000)', function(done) {
+        app.listen(3000, function() {
+            console.log('listen!');
+            request
+                .get('http://localhost:3000/')
+                .end(function(err, res) {
+                    done(err);
+                });
+        });
     });
 });
