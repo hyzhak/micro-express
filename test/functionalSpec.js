@@ -50,4 +50,22 @@ describe('microframework functionality', function() {
                 done();
             });
     });
+
+    it('should work with case #2', function(done) {
+        request
+            .get('http://localhost:3000/goodbye')
+            .end(function(res) {
+                expect(res.text).to.be.equal('acgoodbye');
+                done();
+            });
+    });
+
+    it('should work with case #3', function(done) {
+        request
+            .get('http://localhost:3000/')
+            .end(function(res) {
+                expect(res.text).to.be.equal('acend');
+                done();
+            });
+    });
 });
