@@ -3,9 +3,9 @@ var expect = require('chai').expect,
     request = require('superagent');
 
 describe('microframework functionality', function() {
+    var app;
     beforeEach(function() {
-        var app = middleware.createServer();
-
+        app = middleware.createServer();
         app.use(function (req, res, next) {
             res.write('a');
             next();
@@ -38,11 +38,15 @@ describe('microframework functionality', function() {
         });
     });
 
-    xit('should work with case #1', function(done) {
+    afterEach(function() {
+        app.close();
+    });
+
+    it('should work with case #1', function(done) {
         request
-            .get('/hello')
+            .get('http://localhost:3000/hello')
             .end(function(res) {
-                expect(res.body).to.be.equal('abchello');
+                expect(res.text).to.be.equal('abchello');
                 done();
             });
     });
